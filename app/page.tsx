@@ -319,9 +319,6 @@ export default function Home() {
         const img = new Image()
         let downloadEndTime = 0
 
-        // 禁用图片缓存
-        img.crossOrigin = 'anonymous'
-
         img.onload = () => {
           downloadEndTime = performance.now()
           const downloadTime = downloadEndTime - startTime
@@ -777,8 +774,7 @@ export default function Home() {
                         {result.type === 'image' ? (
                           <img 
                             src={result.urlWithCacheBuster || result.url} 
-                            alt={`Preview ${index + 1}`}
-                            crossOrigin="anonymous"
+                              alt={`Preview ${index + 1}`}
                           />
                         ) : (
                           <iframe 
