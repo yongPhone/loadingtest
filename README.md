@@ -2,9 +2,12 @@
 
 Batch link rendering performance tester for images and HTML pages. Enter URLs in bulk, auto-detect type, measure download/render/total time, and view live progress plus summary stats.
 
-## Demo
-- Live: https://loadingtest-gamma.vercel.app/  
-- Video (GitHub Release asset): https://github.com/yongPhone/loadingtest/releases/latest/download/preview.mp4
+Live demo: https://loadingtest-gamma.vercel.app/
+
+## Preview
+![Loading Test screenshot 1](public/1.png)
+![Loading Test screenshot 2](public/2.png)
+![Loading Test screenshot 3](public/3.png)
 
 ## Features
 - Bulk URL input with auto type detection (image vs HTML)
