@@ -47,6 +47,7 @@ const i18n: Record<Lang, {
   statLabelTotal: string
   concurrencyLabel: string
   backTop: string
+  sizeTip: string
 }> = {
   zh: {
     title: 'Loading Test',
@@ -58,6 +59,7 @@ const i18n: Record<Lang, {
     sizeLabel: '渲染尺寸：',
     concurrencyLabel: '并发数量：',
     backTop: '回到顶部',
+    sizeTip: '预览按输入宽高等比渲染',
     startBtn: '开始测试',
     testingBtn: '测试中...',
     clearBtn: '清空',
@@ -92,6 +94,7 @@ const i18n: Record<Lang, {
     sizeLabel: 'Render size:',
     concurrencyLabel: 'Concurrency:',
     backTop: 'Back to top',
+    sizeTip: 'Preview renders proportionally to the input size',
     startBtn: 'Start',
     testingBtn: 'Testing...',
     clearBtn: 'Clear',
@@ -590,7 +593,9 @@ export default function Home() {
 
         <div className="control-section">
           <div className="size-control">
-            <label>{t.sizeLabel}</label>
+            <div className="size-label-row">
+              <label>{t.sizeLabel}</label>
+            </div>
             <div className="size-inputs">
               <input
                 type="number"
@@ -610,6 +615,12 @@ export default function Home() {
                 max="2000"
               />
               <span className="unit">px</span>
+            </div>
+            <div className="size-tip-icon" aria-label={t.sizeTip}>
+              ?
+              <div className="size-tip-bubble">
+                {t.sizeTip}
+              </div>
             </div>
           </div>
 

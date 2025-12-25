@@ -238,6 +238,7 @@ a {
   flex-direction: column;
   gap: 28px;
   background: linear-gradient(180deg, var(--panel) 0%, rgba(255, 255, 255, 0.8) 100%);
+  overflow-anchor: none; /* prevent auto scroll jumps when content grows */
 }
 
 .input-section {
@@ -367,6 +368,13 @@ a {
   flex: 1;
 }
 
+.size-label-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 4px;
+}
+
 .size-control label {
   font-weight: 700;
   color: var(--ink);
@@ -377,6 +385,49 @@ a {
   display: flex;
   align-items: center;
   gap: 10px;
+}
+
+.size-tip-icon {
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  border: 1px solid var(--line);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 10px;
+  font-weight: 800;
+  color: var(--muted);
+  background: #fff;
+  position: relative;
+  cursor: default;
+  box-shadow: none;
+  margin-left: auto;
+  flex-shrink: 0;
+}
+
+.size-tip-bubble {
+  display: none;
+  position: absolute;
+  top: 30px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: #111827;
+  color: #e5e7eb;
+  padding: 5px 8px;
+  border-radius: 8px;
+  box-shadow: 0 6px 14px rgba(15, 23, 42, 0.12);
+  font-size: 11px;
+  line-height: 1.35;
+  white-space: nowrap;
+  z-index: 6;
+  min-width: 0;
+  max-width: none;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.size-tip-icon:hover .size-tip-bubble {
+  display: block;
 }
 
 .size-inputs input[type="number"] {
