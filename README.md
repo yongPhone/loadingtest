@@ -4,6 +4,11 @@ Batch link rendering performance tester for images and HTML pages. Enter URLs in
 
 ![Screenshot](public/screenshot.png)
 
+## Demo
+- Inline preview (if supported by your viewer):
+  <video src="public/preview.mov" controls width="800"></video>
+- Direct link: [public/preview.mov](public/preview.mov)
+
 ## Features
 - Bulk URL input with auto type detection (image vs HTML)
 - Cache-busting for every request; fetch + `srcdoc` for HTML, `Image()` for images
