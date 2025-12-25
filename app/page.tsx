@@ -15,6 +15,11 @@ interface LoadResult {
 
 type Lang = 'zh' | 'en'
 
+const DEFAULT_WIDTH = 393
+const DEFAULT_HEIGHT = 630
+const clampSize = (value: number, min = 50, max = 2000) =>
+  Math.min(max, Math.max(min, value || min))
+
 const i18n: Record<Lang, {
   title: string
   subtitle: string
@@ -59,7 +64,7 @@ const i18n: Record<Lang, {
     sizeLabel: '渲染尺寸：',
     concurrencyLabel: '并发数量：',
     backTop: '回到顶部',
-    sizeTip: '预览按输入宽高等比渲染',
+    sizeTip: '预览按输入宽高等比缩放',
     startBtn: '开始测试',
     testingBtn: '测试中...',
     clearBtn: '清空',
@@ -94,7 +99,7 @@ const i18n: Record<Lang, {
     sizeLabel: 'Render size:',
     concurrencyLabel: 'Concurrency:',
     backTop: 'Back to top',
-    sizeTip: 'Preview renders proportionally to the input size',
+    sizeTip: 'Preview scales proportionally to the input size',
     startBtn: 'Start',
     testingBtn: 'Testing...',
     clearBtn: 'Clear',
@@ -125,8 +130,8 @@ export default function Home() {
   const [urls, setUrls] = useState('')
   const [loading, setLoading] = useState(false)
   const [results, setResults] = useState<LoadResult[]>([])
-  const [frameWidth, setFrameWidth] = useState(393)
-  const [frameHeight, setFrameHeight] = useState(630)
+  const [frameWidthInput, setFrameWidthInput] = useState(String(DEFAULT_WIDTH))
+  const [frameHeightInput, setFrameHeightInput] = useState(String(DEFAULT_HEIGHT))
   const [lang, setLang] = useState<Lang>('en')
   const [langOpen, setLangOpen] = useState(false)
   const [concurrency, setConcurrency] = useState(4)
@@ -482,6 +487,13 @@ export default function Home() {
 
   const stats = calculateStats()
 
+  const widthNum = clampSize(
+    frameWidthInput === '' ? DEFAULT_WIDTH : Number(frameWidthInput)
+  )
+  const heightNum = clampSize(
+    frameHeightInput === '' ? DEFAULT_HEIGHT : Number(frameHeightInput)
+  )
+
   return (
     <div className="container">
       <div className="header">
@@ -596,8 +608,16 @@ export default function Home() {
             <div className="size-inputs">
               <input
                 type="number"
-                value={frameWidth}
-                onChange={e => setFrameWidth(Number(e.target.value))}
+                value={frameWidthInput}
+                onChange={e => {
+                  const raw = e.target.value
+                  if (raw === '') {
+                    setFrameWidthInput('')
+                    return
+                  }
+                  const normalized = String(Number(raw))
+                  setFrameWidthInput(normalized)
+                }}
                 disabled={loading}
                 min="100"
                 max="2000"
@@ -605,8 +625,16 @@ export default function Home() {
               <span className="separator">×</span>
               <input
                 type="number"
-                value={frameHeight}
-                onChange={e => setFrameHeight(Number(e.target.value))}
+                value={frameHeightInput}
+                onChange={e => {
+                  const raw = e.target.value
+                  if (raw === '') {
+                    setFrameHeightInput('')
+                    return
+                  }
+                  const normalized = String(Number(raw))
+                  setFrameHeightInput(normalized)
+                }}
                 disabled={loading}
                 min="100"
                 max="2000"
@@ -763,14 +791,12 @@ export default function Home() {
                   
                   {result.success ? (
                     <>
-                      <div 
-                        className="result-preview-frame"
-                        style={{
-                          width: '100%',
-                          maxWidth: `${frameWidth}px`,
-                          height: `${frameHeight}px`
-                        }}
-                      >
+                      <div className="result-preview-frame" style={{
+                        width: '100%',
+                        maxWidth: `${widthNum}px`,
+                        aspectRatio: `${widthNum} / ${heightNum}`,
+                        height: 'auto'
+                      }}>
                         {result.type === 'image' ? (
                           <img 
                             src={result.urlWithCacheBuster || result.url} 
