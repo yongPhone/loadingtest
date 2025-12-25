@@ -2,12 +2,10 @@
 
 Batch link rendering performance tester for images and HTML pages. Enter URLs in bulk, auto-detect type, measure download/render/total time, and view live progress plus summary stats.
 
-![Screenshot](public/screenshot.png)
-
 ## Demo
-- Inline preview (if supported by your viewer):
-  <video src="public/preview.mov" controls width="800"></video>
-- Direct link: [public/preview.mov](public/preview.mov)
+<video src="public/preview.mov" controls width="800"></video>
+
+If the inline player doesn’t show in your viewer, use the direct link: [public/preview.mov](public/preview.mov)
 
 ## Features
 - Bulk URL input with auto type detection (image vs HTML)
